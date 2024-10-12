@@ -1,19 +1,11 @@
-// <dependency>
-//     <groupId>redis.clients</groupId>
-//     <artifactId>jedis</artifactId>
-//     <version>4.3.1</version>
-// </dependency>
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import java.util.UUID;
 
-// Interface para os produtores
 interface Producer {
     void sendMessage(String message);
 }
 
-// Classe base para os produtores
 abstract class BaseProducer implements Producer {
     protected final JedisPool jedisPool;
     protected final String topic;
@@ -33,7 +25,6 @@ abstract class BaseProducer implements Producer {
     }
 }
 
-// Produtores para queue/fast-delivery-items
 class FoodDeliveryProducer extends BaseProducer {
     public FoodDeliveryProducer(JedisPool jedisPool) {
         super(jedisPool, "queue/fast-delivery-items");
@@ -46,7 +37,6 @@ class PhysicPersonDeliveryProducer extends BaseProducer {
     }
 }
 
-// Produtores para queue/long-distance-items
 class PyMarketPlaceProducer extends BaseProducer {
     public PyMarketPlaceProducer(JedisPool jedisPool) {
         super(jedisPool, "queue/long-distance-items");
